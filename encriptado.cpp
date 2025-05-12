@@ -1,20 +1,16 @@
 #include <bitset>
-#include <iostream>
 #include <fstream>
 
-using namespace std;
-
 #include "encriptado.h"
+
+using namespace std;
 
 string abrirArchivoEncriptacion(string narch)
 {
     ifstream file;
     file.open(narch);
     if (!file.is_open())
-    {
-        cout << "Falla." << endl;
         return "1";
-    }
     string bin = "";
     while (file.good())
     {
@@ -30,7 +26,7 @@ string encriptacionMetodo1(string bin, int n)
 {
     string nString = "";
     for (int i = 0; i < n; i++)
-        nString += ((bin[i] - '0') ^ 1) + '0';
+        nString += bin[i] ^ 1;
 
     unsigned int ceros = 0, unos = 0, multiplo = ((bin.length() / n) * n);
     for (unsigned int i = 0; i < multiplo; i++)
@@ -45,7 +41,7 @@ string encriptacionMetodo1(string bin, int n)
             for (int t = 1; t <= n; t++)
             {
                 if (unos == ceros || (ceros > unos && t % 2 == 0) || (ceros < unos && t % 3 == 0))
-                    nString += ((bin[t + i] - '0') ^ 1) + '0';
+                    nString += bin[t + i] ^ 1;
                 else
                     nString += bin[t + i];
             }
@@ -57,7 +53,7 @@ string encriptacionMetodo1(string bin, int n)
     for (int t = 0; t < n; t++)
     {
         if (unos == ceros || (ceros > unos && (t + 1) % 2 == 0) || (ceros < unos && (t + 1) % 3 == 0))
-            nString += ((bin[t + multiplo] - '0') ^ 1) + '0';
+            nString += bin[t + multiplo] ^ 1;
         else
             nString += bin[t + multiplo];
     }
@@ -85,15 +81,10 @@ string encriptacionMetodo2(string bin, int n)
     return nString;
 }
 
-void crearArchivoEncriptado(string bin)
+void crearArchivoEncriptado(string bin,string narch)
 {
     ofstream file;
-    file.open("../../encriptado.txt");
-    if (!file.is_open())
-    {
-        cout << "Falla." << endl;
-        return;
-    }
+    file.open(narch);
     file << bin;
     file.close();
 }
