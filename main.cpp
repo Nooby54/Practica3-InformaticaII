@@ -4,25 +4,32 @@
 #include <sstream>
 
 #include "encriptado.h"
+#include "desencriptado.h"
 
 using namespace std;
 
 int main()
 {
-    string bin = abrirArchivo("../../base.txt");
+    string bin = abrirArchivoEncriptacion("../../base.txt");
 
-    int semilla = 0;
-    cout << "Ingrese la semilla: ";
-    cin >> semilla;
-    if(semilla < 0 || semilla > bin.length())
-        cout << "La semilla debe ser mayor que 0 y menor que " << bin.length() << endl;
+    unsigned int semilla = 0;
+    while (semilla <= 0 || semilla > bin.length())
+    {
+        cout << "Ingrese la semilla: ";
+        cin >> semilla;
+        if (semilla <= 0 || semilla > bin.length())
+            cout << "La semilla debe ser mayor que 0 y menor que " << bin.length() << endl;
+    }
     imprimir(bin);
     cout << endl << "metodo1" << endl;
-    imprimir(metodo1(bin,semilla));
+    imprimir(encriptacionMetodo1(bin, semilla));
     cout << endl << "metodo2" << endl;
-    imprimir(metodo2(bin,semilla));
+    imprimir(encriptacionMetodo2(bin, semilla));
+
+    crearArchivoEncriptado(encriptacionMetodo1(bin, semilla));
+
+    cout << endl << "Des met 2" << endl;
+    imprimir(desencriptarMetodo2(bin, semilla));
+
     return 0;
 }
-
-
-
