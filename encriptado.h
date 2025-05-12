@@ -7,7 +7,6 @@ using namespace std;
 string abrirArchivoEncriptacion(string narch);
 string encriptacionMetodo1(string bin, int n);
 string encriptacionMetodo2(string bin, int n);
-void imprimir(string bin);
 void crearArchivoEncriptado(string bin);
 
 #endif // ENCRIPTADO_H

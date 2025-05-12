@@ -23,10 +23,6 @@ string abrirArchivoEncriptacion(string narch)
             bin += bit;
     }
     file.close();
-    for (unsigned int i = 0; i < bin.length(); i++)
-    {
-        bin[i] = bin[i] - '0';
-    }
     return bin;
 }
 
@@ -34,14 +30,12 @@ string encriptacionMetodo1(string bin, int n)
 {
     string nString = "";
     for (int i = 0; i < n; i++)
-    {
-        nString += bin[i] ^ 1;
-    }
+        nString += ((bin[i] - '0') ^ 1) + '0';
 
     unsigned int ceros = 0, unos = 0, multiplo = ((bin.length() / n) * n);
     for (unsigned int i = 0; i < multiplo; i++)
     {
-        if (bin[i] == 1)
+        if (bin[i] == '1')
             unos += 1;
         else
             ceros += 1;
@@ -51,7 +45,7 @@ string encriptacionMetodo1(string bin, int n)
             for (int t = 1; t <= n; t++)
             {
                 if (unos == ceros || (ceros > unos && t % 2 == 0) || (ceros < unos && t % 3 == 0))
-                    nString += bin[t + i] ^ 1;
+                    nString += ((bin[t + i] - '0') ^ 1) + '0';
                 else
                     nString += bin[t + i];
             }
@@ -60,10 +54,10 @@ string encriptacionMetodo1(string bin, int n)
         }
     }
     n = bin.length() - multiplo;
-    for (int t = 1; t <= n; t++)
+    for (int t = 0; t < n; t++)
     {
-        if (unos == ceros || (ceros > unos && t % 2 == 0) || (ceros < unos && t % 3 == 0))
-            nString += bin[t + multiplo] ^ 1;
+        if (unos == ceros || (ceros > unos && (t + 1) % 2 == 0) || (ceros < unos && (t + 1) % 3 == 0))
+            nString += ((bin[t + multiplo] - '0') ^ 1) + '0';
         else
             nString += bin[t + multiplo];
     }
@@ -91,15 +85,6 @@ string encriptacionMetodo2(string bin, int n)
     return nString;
 }
 
-void imprimir(string bin)
-{
-    for (unsigned int i = 0; i < bin.length(); i++)
-    {
-        cout << char(bin[i] + 48);
-    }
-    cout << endl;
-}
-
 void crearArchivoEncriptado(string bin)
 {
     ofstream file;
@@ -108,10 +93,6 @@ void crearArchivoEncriptado(string bin)
     {
         cout << "Falla." << endl;
         return;
-    }
-    for (unsigned int i = 0; i < bin.length(); i++)
-    {
-        bin[i] = (bin[i] + 48);
     }
     file << bin;
     file.close();

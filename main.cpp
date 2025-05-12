@@ -20,16 +20,15 @@ int main()
         if (semilla <= 0 || semilla > bin.length())
             cout << "La semilla debe ser mayor que 0 y menor que " << bin.length() << endl;
     }
-    imprimir(bin);
+    cout << bin;
     cout << endl << "metodo1" << endl;
-    imprimir(encriptacionMetodo1(bin, semilla));
-    cout << endl << "metodo2" << endl;
-    imprimir(encriptacionMetodo2(bin, semilla));
+    cout << "\n\n" << encriptacionMetodo1(bin, semilla) << endl;
+    cout << endl << "metodo2" << endl << (encriptacionMetodo2(bin, semilla));
 
     crearArchivoEncriptado(encriptacionMetodo1(bin, semilla));
 
     cout << endl << "Des met 2" << endl;
-    imprimir(desencriptarMetodo2(bin, semilla));
+    cout << (desencriptarMetodo2(bin, semilla));
 
     return 0;
 }
