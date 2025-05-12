@@ -16,8 +16,11 @@ int main()
     cin >> semilla;
     if(semilla < 0 || semilla > bin.length())
         cout << "La semilla debe ser mayor que 0 y menor que " << bin.length() << endl;
-    cout << bin << endl;
-    metodo2(bin,semilla);
+    imprimir(bin);
+    cout << endl << "metodo1" << endl;
+    imprimir(metodo1(bin,semilla));
+    cout << endl << "metodo2" << endl;
+    imprimir(metodo2(bin,semilla));
     return 0;
 }
 
