@@ -40,24 +40,24 @@ string metodo1(string bin, int n){
         else
             ceros+=1;
 
-        if((i+1)%n == 0 && i!=0 && (i+n) < (bin.size()-1)){
-            for(int t = 0; t < n; t++){
-                if(unos == ceros || (ceros > unos && (t+1)%2 == 0) || (ceros < unos && (t+1)%3 == 0)){
-                    nString+= bin[t+i+1] ^ 1;}
-                else{
-                    nString+= bin[t+i+1];
-                }
+        if((i+1)%n == 0 && i!=0 && (i+n) < bin.size()){
+            for(int t = 1; t <= n; t++){
+                if(unos == ceros || (ceros > unos && t%2 == 0) || (ceros < unos && t%3 == 0))
+                    nString+= bin[t+i] ^ 1;
+                else
+                    nString+= bin[t+i];
             }
             unos = 0;
             ceros = 0;
         }
     }
+    unsigned int desplazamiento = ((bin.size()/n)*n);
     n = bin.size() - (bin.size()/n)*n;
-    for(int t = 0; t < n; t++){
-        if(unos == ceros || (ceros > unos && (t+1)%2 == 0) || (ceros < unos && (t+1)%3 == 0)){
-            nString+= bin[t+temp+1] ^ 1;}
+    for(int t = 1; t <= n; t++){
+        if(unos == ceros || (ceros > unos && t%2 == 0) || (ceros < unos && t%3 == 0)){
+            nString+= bin[t+desplazamiento] ^ 1;}
         else{
-            nString+= bin[t+temp+1];
+            nString+= bin[t+desplazamiento];
         }
 
     }
