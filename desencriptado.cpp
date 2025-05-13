@@ -1,5 +1,4 @@
 #include <cmath>
-#include <iostream>
 #include <fstream>
 
 #include "desencriptado.h"
@@ -101,7 +100,6 @@ string crearArchivoDesencriptado(string bin, bool mode, string narch)
         }
     }
     if(mode == true){
-        cout << "Archivo";
         file.open(narch);
         file << nString;
         file.close();

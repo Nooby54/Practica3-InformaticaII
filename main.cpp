@@ -77,17 +77,39 @@ int main()
     else if(modoPrincipal == 3){
         string cedula = validarCedula(), clave = validarClave();
         if(validarUsuario("../../data/sudo.txt", cedula, clave)){
-            //crear usuario
-            cout << "Bienvenido, a continuacion deberá registrar al usuario" << endl;
+            cout << "Bienvenido, a continuacion debera registrar al usuario" << endl;
             string nuevaCedula = validarCedula(), nuevaClave = validarClave(), saldo = validarSaldo();
-            if(!cedulaExiste(cedula)){
-                cout << "No existe";
-                registrarUsuario("../../data/users.txt",cedula,clave,saldo);
+            if(not cedulaExiste(nuevaCedula)){
+                cout << "Usuario registrado exitosamente";
+                registrarUsuario("../../data/users.txt",nuevaCedula,nuevaClave,saldo);
             }
         }
         else if(validarUsuario("../../data/users.txt", cedula, clave)){
-            // Consultar saldo
-            // Retirar dinero
+            unsigned short int modo = 0;
+            do{
+                cout << "Ingrese 1 para consultar saldo o 2 para hacer un retiro: ";
+                cin >> modo;
+            }while(modo < 1 || modo > 2);
+            size_t posInicial = 0, posFinal = 0;
+            string saldo = obtenerSaldoString(cedula, posFinal, posInicial);
+            if(saldo == "1"){
+                cout << "Ocurrio un error al obtener la informacion del archivo";
+            }else{
+                if(modo == 1){
+                    if(stoi(saldo)<1000)
+                        cout << "Saldo insuficiente" << endl;
+                    else{
+                        cout << saldo;
+                        actualizarSaldo(saldo,posFinal,posInicial,"../../data/users.txt");}}
+                else{
+                    string retiro = validarSaldo();
+                    if(stoi(saldo) < (stoi(retiro)+1000)){
+                        cout << "Saldo insuficiente";
+                    }
+                    else{
+                        actualizarSaldo(saldo,posFinal,posInicial,"../../data/users.txt", to_string(stoi(retiro) + 1000));
+                    }
+                }}
         }
         else{
             cout << "El usuario no existe";
