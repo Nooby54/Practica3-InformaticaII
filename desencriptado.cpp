@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include <fstream>
 
 #include "desencriptado.h"
@@ -81,7 +82,7 @@ string desencriptarMetodo2(string bin, int n)
     return nString;
 }
 
-void crearArchivoDesencriptado(string bin,string narch)
+string crearArchivoDesencriptado(string bin, bool mode, string narch)
 {
     ofstream file;
     int decimal = 0, potencia = 7;
@@ -99,7 +100,12 @@ void crearArchivoDesencriptado(string bin,string narch)
             potencia = 7;
         }
     }
-    file.open(narch);
-    file << nString;
-    file.close();
+    if(mode == true){
+        cout << "Archivo";
+        file.open(narch);
+        file << nString;
+        file.close();
+        return "0";
+    }
+    return nString;
 }

@@ -19,6 +19,9 @@ string abrirArchivoEncriptacion(string narch)
             bin += bit;
     }
     file.close();
+    if(bin.length() == 0){
+        return "1";
+    }
     return bin;
 }
 
