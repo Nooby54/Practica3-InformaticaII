@@ -19,7 +19,8 @@ string abrirArchivoEncriptacion(string narch)
             bin += bit;
     }
     file.close();
-    if(bin.length() == 0){
+    if (bin.length() == 0)
+    {
         return "1";
     }
     return bin;
@@ -84,7 +85,7 @@ string encriptacionMetodo2(string bin, int n)
     return nString;
 }
 
-void crearArchivoEncriptado(string bin,string narch)
+void crearArchivoEncriptado(string bin, string narch)
 {
     ofstream file;
     file.open(narch);

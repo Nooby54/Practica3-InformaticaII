@@ -17,7 +17,6 @@ string cargarArchivoCajero(string nArchivo){
 
 bool validarUsuario(string nArchivo, string cedula, string clave){
     string data = cargarArchivoCajero(nArchivo);
-
     size_t posCedula = 0;
     posCedula = data.find(cedula);
     if (posCedula != string::npos) {
@@ -72,13 +71,17 @@ string validarClave(){
 }
 
 string validarSaldo(){
-    int saldo = 0;
+    string saldo = "";
     do{
-        cout << "Ingrese el saldo o monto a retirar: ";
-        cin >> saldo;
-    }while(saldo<0);
-
-    return to_string(saldo);
+        try{
+            cout << "Ingrese el saldo o monto a retirar: ";
+            cin >> saldo;
+            stoll(saldo);
+        }catch(std::out_of_range const& ex){
+            cout << "El valor debe estar en el rango" << endl;
+        }
+    }while(saldo < "0" || saldo > "9223372036854775807");
+    return saldo;
 }
 
 bool cedulaExiste(string cedula){
@@ -114,7 +117,8 @@ string obtenerSaldoString(string cedula,size_t& posFinal, size_t &posInicial){
 
 void actualizarSaldo(string saldo,size_t posFinal, size_t posInicial, string nArchivo, string retiro){
     string data = cargarArchivoCajero("../../data/users.txt") + "\n";
-    saldo = to_string(stoi(saldo) - stoi(retiro));
+    saldo = to_string(stoll(saldo) - stoll(retiro));
+    cout << "El nuevo saldo es: " << saldo << endl;
     data.erase(posInicial+2, ((posFinal -2)- (posInicial)));
     data.insert(posInicial+2,saldo);
     nStringArchivo(data,nArchivo);

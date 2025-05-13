@@ -66,7 +66,7 @@ string desencriptarMetodo2(string bin, int n)
     unsigned int multiplo = ((bin.length() / n) * n);
     for (unsigned int t = 0; t < multiplo; t += n)
     {
-        for (int r = 1; r < n ; r++)
+        for (int r = 1; r < n; r++)
             nString += bin[t + r];
         nString += bin[t];
     }
@@ -86,20 +86,24 @@ string crearArchivoDesencriptado(string bin, bool mode, string narch)
     ofstream file;
     int decimal = 0, potencia = 7;
     string nString = "";
-    for(unsigned int i=0;i<bin.length();i++){
+    for (unsigned int i = 0; i < bin.length(); i++)
+    {
 
-        if(bin[i]=='1'){
+        if (bin[i] == '1')
+        {
             decimal += pow(2, potencia);
         }
 
         potencia--;
-        if(potencia + 1 ==0){
+        if (potencia + 1 == 0)
+        {
             nString += char(decimal);
             decimal = 0;
             potencia = 7;
         }
     }
-    if(mode == true){
+    if (mode == true)
+    {
         file.open(narch);
         file << nString;
         file.close();

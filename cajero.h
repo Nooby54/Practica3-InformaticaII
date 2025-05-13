@@ -12,7 +12,7 @@ string validarCedula();
 string validarClave();
 string validarSaldo();
 bool cedulaExiste(string cedula);
-string obtenerSaldoString(string cedula,size_t& posFinal, size_t &posInicial);
-void actualizarSaldo(string saldo,size_t posFinal, size_t posInicial, string nArchivo, string retiro="1000");
+string obtenerSaldoString(string cedula, size_t &posFinal, size_t &posInicial);
+void actualizarSaldo(string saldo, size_t posFinal, size_t posInicial, string nArchivo, string retiro = "1000");
 
 #endif // CAJERO_H
